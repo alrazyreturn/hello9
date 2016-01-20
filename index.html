@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DEMO</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+        <title>DEMO</title>
+        <script type="text/javascript" charset="utf-8">
+
+            function LoginButton_onclick() {
+                $.ajax({
+                       type: "POST",
+                       contentType: "application/json; charset=utf-8",
+                       dataType: "json",
+                       url:    "http://182.72.192.18/webservicedemo/service.asmx/HelloWorld",
+                       data: '{}',
+                       success: function(msg) {
+                       jsonArray = $.parseJSON(msg.d);
+                       var $ul = $( '<ul id="details">' );
+                       for(i=0; i < jsonArray.length; i++)
+                       {
+                       $("#details").append('<li id="'+i+'" name="head" >'+jsonArray[i].name+'</li>' );
+                       }
+                       $('#details').listview('refresh');
+                       },
+                       error: function(msg) {
+                       alert("Error");
+                       }
+                       });
+
+            }
+
+
+            </script>
+        </head>
+        <body>
+            <div data-role="page" id="Page1">
+                <h1>DEMO PAGE</h1>
+
+                <div id="DEMO">
+                    <input id="LoginButton" type="button" value="GET DATA" onclick="LoginButton_onclick()" /></div>
+
+                <div id="divList" data-role="content">
+                    <ul id="details" data-role="listview" data-inset="true"></ul>
+                </div>
+
+            </div>
+        </body>
+</html>
